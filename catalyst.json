@@ -1,7 +1,7 @@
 {
   "appsail": [
     {
-      "name": "currentguard-ai",
+      "name": "currentguard",
       "source": "appsail"
     }
   ]
