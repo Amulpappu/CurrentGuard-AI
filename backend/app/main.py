@@ -74,7 +74,7 @@ app.include_router(simulator.router, prefix=settings.API_V1_STR)
 app.include_router(settings_router.router, prefix=settings.API_V1_STR)
 app.include_router(laptop_sensor.router, prefix=settings.API_V1_STR)
 
-@app.get("/")
+@app.get("/api/info")
 def root():
     return {
         "system": settings.PROJECT_NAME,
@@ -87,3 +87,37 @@ def root():
 @app.get("/health")
 def health_check():
     return {"status": "healthy", "service": "currentguard-backend"}
+
+
+# ---------------------------------------------------------------------------
+# Serve the built React dashboard (used when deployed, e.g. on Zoho Catalyst).
+# The deploy script copies frontend/dist into a "static" folder next to app/.
+# Locally (no static folder) the API runs on its own and Vite serves the UI.
+# ---------------------------------------------------------------------------
+import os
+from pathlib import Path
+from fastapi import HTTPException
+from fastapi.responses import FileResponse
+
+STATIC_DIR = Path(os.getenv("FRONTEND_DIST", Path(__file__).resolve().parent.parent / "static"))
+INDEX_FILE = STATIC_DIR / "index.html"
+
+if INDEX_FILE.is_file():
+    logger.info(f"Serving dashboard from {STATIC_DIR}")
+
+    @app.get("/", include_in_schema=False)
+    def dashboard_index():
+        return FileResponse(INDEX_FILE)
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    def dashboard_files(full_path: str):
+        if full_path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="Not Found")
+        candidate = (STATIC_DIR / full_path).resolve()
+        if candidate.is_file() and STATIC_DIR.resolve() in candidate.parents:
+            return FileResponse(candidate)
+        return FileResponse(INDEX_FILE)  # client-side routes fall back to the app
+else:
+    @app.get("/", include_in_schema=False)
+    def root_info():
+        return root()

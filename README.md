@@ -113,3 +113,8 @@ The web dashboard will be available at:
 
 ## 📄 License
 MIT License. Built for Vishwakarma Unique Application Stage 2 Prototype.
+
+
+## ☁️ Deploy to Zoho Catalyst
+
+Double-click `deploy_catalyst.bat` to publish the dashboard and API as one live app on Catalyst AppSail. See [DEPLOY_CATALYST.md](DEPLOY_CATALYST.md) for details.
