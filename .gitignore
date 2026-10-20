@@ -29,3 +29,8 @@ Thumbs.db
 077c6b8c-41c7-4fd1-a17b-1beaf3a849f3.png
 cceec429-c21e-422c-bcec-6b1f626bf0cd.png
 hardware/
+
+# Zoho Catalyst deploy output and local login
+catalyst_build/
+.catalystrc
+catalyst-debug.log

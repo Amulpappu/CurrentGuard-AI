@@ -1,0 +1,6 @@
+{
+  "command": "python3 -u run.py",
+  "build_path": "../catalyst_build",
+  "stack": "python_3_11",
+  "memory": 512
+}
