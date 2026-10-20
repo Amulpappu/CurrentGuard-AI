@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+.venv/
+env/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+dist/
+build/
+
+# Database & runtime files
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment & local settings
+.env.local
+.DS_Store
+Thumbs.db
+
+# Non-software assets (CAD / 3D models / Presentations / Raw PDFs)
+*.step
+*.stl
+*.scad
+*.pptx
+*.pdf
+*.zip
+077c6b8c-41c7-4fd1-a17b-1beaf3a849f3.png
+cceec429-c21e-422c-bcec-6b1f626bf0cd.png
+hardware/

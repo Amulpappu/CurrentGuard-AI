@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CurrentGuard AI — Intelligent Electricity Loss & Energy Waste Management</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="vendor/chart.umd.js"></script>
+</head>
+<body>
+
+  <!-- Screen 01: Login Page View -->
+  <div id="screen-login" class="login-wrapper">
+    <div class="login-form-container">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 28px;">
+        <img src="assets/logo.png" alt="CurrentGuard AI" style="width: 44px; height: 44px; object-fit: contain;">
+        <div>
+          <h2 style="font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;">CURRENTGUARD AI</h2>
+          <span style="font-size: 0.72rem; color: var(--accent-green); font-weight: 600; text-transform: uppercase;">Monitor Power. Prevent Waste. Protect Energy.</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 6px;">Welcome Back</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary);">Sign in to access real-time energy telemetry and security logs.</p>
+      </div>
+
+      <form id="loginForm" onsubmit="event.preventDefault(); window.loginApp();">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" class="form-control" id="loginEmail" value="admin@currentguard.ai" required>
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label style="margin: 0;">Password</label>
+            <a href="#" onclick="alert('Demo Mode: Click Sign In directly.'); return false;" style="font-size: 0.75rem; color: var(--accent-green); text-decoration: none;">Forgot password?</a>
+          </div>
+          <input type="password" class="form-control" id="loginPass" value="••••••••••••" required>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 22px; font-size: 0.82rem; color: var(--text-secondary);">
+          <input type="checkbox" id="rememberMe" checked>
+          <label for="rememberMe">Remember this terminal session</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 0.95rem;">
+          Sign In to CurrentGuard AI
+        </button>
+      </form>
+
+      <div style="margin-top: 24px; padding: 14px; background: rgba(0, 230, 118, 0.06); border: 1px solid rgba(0, 230, 118, 0.15); border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-secondary);">
+        <strong style="color: var(--accent-green);">Demo Pre-configured Roles:</strong>
+        <p style="margin-top: 4px;">• Administrator (Full Access) &nbsp;|&nbsp; • Maintenance Engineer &nbsp;|&nbsp; • Auditor</p>
+      </div>
+    </div>
+
+    <div class="login-hero">
+      <img src="assets/logo.png" alt="CurrentGuard AI Emblem" class="hero-logo">
+      <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 12px; max-width: 440px;">Monitor. Prevent. Protect.</h2>
+      <p style="color: var(--text-secondary); max-width: 420px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px;">
+        Intelligent Electricity Loss & Energy Waste Management Platform with uncertainty-aware AI, IoT hardware support, and tamper-evident cybersecurity.
+      </p>
+      <div style="display: flex; gap: 12px;">
+        <span class="sdg-badge">☀️ SDG 7: Clean Energy</span>
+        <span class="sdg-badge sdg13">🌍 SDG 13: Climate Action</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 02 - 12: Main System Dashboard Shell -->
+  <div id="screen-app" class="app-container" style="display: none;">
+
+    <!-- Left Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand-section">
+        <img src="assets/logo.png" alt="Logo" class="brand-logo">
+        <div class="brand-text">
+          <h1>CurrentGuard</h1>
+          <span>AI Energy Guard</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a class="nav-item active" onclick="window.navigateTab('dashboard')">
+          <span class="icon">📊</span>
+          <span>02. Dashboard</span>
+        </a>
+        <a class="nav-item" onclick="window.navigateTab('alerts')">
+          <span class="icon">🔔</span>
+          <span>03. Alerts</span>
+          <span class="badge" id="sidebarAlertCount">3</span>
+        </a>
+        <a class="nav-item" onclick="window.navigateTab('monitoring')">
+          <span class="icon">⚡</span>
+          <span>04. Energy Monitoring</span>
+        </a>
+        <a class="nav-item" onclick="window.navigateTab('ai-anomalies')">
+          <span class="icon">🧠</span>
+          <span>05. AI Anomaly Detection</span>
+        </a>
+        <a class="nav-item" onclick="window.navigateTab('energy-loss')">
+          <span class="icon">📉</span>
+          <span>06. Energy Loss Analysis</span>
+        </a>
+        <a class="nav-item" onclick="window.navigateTab('waste-management')">
+          <span class="icon">💡</span>
+          <span>07. Energy Waste</span>
+        </a>
+        <a class="nav-item" onclick="window.navigateTab('device-management')">
+          <span class="icon">📟</span>
+          <span>08. Devices</span>
+        </a>
+        <a class="nav-item" onclick="window.navigateTab('cybersecurity')">
+          <span class="icon">🛡️</span>
+          <span>09. Cybersecurity</span>
+        </a>
+        <a class="nav-item" onclick="window.navigateTab('reports')">
+          <span class="icon">📑</span>
+          <span>10. Reports</span>
+        </a>
+        <a class="nav-item" onclick="window.navigateTab('architecture')">
+          <span class="icon">🏗️</span>
+          <span>11. Architecture</span>
+        </a>
+        <a class="nav-item" onclick="window.navigateTab('about')">
+          <span class="icon">ℹ️</span>
+          <span>12. About & Team</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-status-indicator">
+          <span class="pulse-dot"></span>
+          <span>System Online</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+          <span>Zero-Risk Simulation</span>
+          <a href="#" onclick="window.logoutApp(); return false;" style="color: var(--text-muted); text-decoration: none;">Exit</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Body -->
+    <div class="main-wrapper">
+      <!-- Top Navigation & Scenario Controls -->
+      <header class="topbar">
+        <div class="topbar-left" style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+          <div class="scenario-pill">
+            <span>Scenario:</span>
+            <select id="scenarioSelector" onchange="window.switchScenario(this.value)">
+              <option value="NORMAL">Normal Operation</option>
+              <option value="WASTAGE" selected>Unoccupied Room Wastage</option>
+              <option value="METER_MISMATCH">Supply vs Consumer Mismatch</option>
+              <option value="DEVICE_OFFLINE">Sensor / Node Offline</option>
+            </select>
+          </div>
+
+          <!-- Location & Daily Electricity Rate Selector -->
+          <div class="scenario-pill" style="border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.08);">
+            <span style="color: var(--accent-amber);">📍 Location:</span>
+            <select id="locationSelector" onchange="window.switchLocation(this.value)" style="color: #fbbf24; font-weight: 700;">
+              <!-- Populated dynamically via JS -->
+            </select>
+            <span id="headerRatePill" style="font-weight: 700; color: var(--accent-green); margin-left: 4px;">₹6.77/kWh</span>
+            <button class="btn btn-secondary btn-sm" onclick="window.openTariffModal()" style="padding: 2px 8px; font-size: 0.72rem; margin-left: 6px;" title="Configure Daily Current Rate">⚙️ Rate</button>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="sdg-badge">☀️ SDG 7</span>
+          <span class="sdg-badge sdg13">🌍 SDG 13</span>
+
+          <div class="role-switcher">
+            <span>Role:</span>
+            <select id="userRoleSelect" onchange="window.switchRole(this.value)">
+              <option value="Admin">Administrator</option>
+              <option value="Maintenance" selected>Maintenance Staff</option>
+              <option value="Auditor">Energy Auditor</option>
+              <option value="Viewer">Guest Viewer</option>
+            </select>
+          </div>
+
+          <div class="user-profile" onclick="window.navigateTab('about')">
+            <div class="avatar" id="userAvatar">LK</div>
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 700;" id="userNameHeader">Lohith K</div>
+              <div style="font-size: 0.7rem; color: var(--text-muted);" id="userRoleHeader">Maintenance Lead</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Panel 02: Dashboard (Home) -->
+      <main id="page-dashboard" class="page-container active">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Good Morning!</h2>
+            <p>Here's today's energy status, live multi-zone telemetry, and daily location tariff</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span id="dashboardLocationPill" style="font-size: 0.8rem; color: var(--text-secondary); background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); cursor: pointer;" onclick="window.openTariffModal()" title="Click to view or edit location daily rates">
+              📅 15 Sep 2026 &nbsp;|&nbsp; 📍 <strong id="dashLocName" style="color: var(--text-primary);">Coimbatore (Rathinam Campus)</strong> &nbsp;|&nbsp; Daily Rate: <strong id="dashDailyRate" style="color: var(--accent-green);">₹6.77/kWh</strong> ⚙️
+            </span>
+          </div>
+        </div>
+
+        <!-- 4 KPI Cards -->
+        <div class="kpi-grid">
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-green);">⚡</div>
+            <div class="kpi-info">
+              <h4>Total Consumption</h4>
+              <div class="kpi-value" id="kpi-consumption">1,248 <span style="font-size: 0.95rem; font-weight: 500;">kWh</span></div>
+              <div class="kpi-sub">▲ 3% from yesterday</div>
+            </div>
+          </div>
+
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-cyan);">🌱</div>
+            <div class="kpi-info">
+              <h4>Energy Efficiency</h4>
+              <div class="kpi-value" id="kpi-efficiency">87.4%</div>
+              <div class="kpi-sub">▲ 3.1% improvement</div>
+            </div>
+          </div>
+
+          <div class="card kpi-card danger">
+            <div class="kpi-icon" style="color: var(--accent-red);">🔔</div>
+            <div class="kpi-info">
+              <h4>Active Alerts</h4>
+              <div class="kpi-value" id="kpi-alerts">3</div>
+              <div class="kpi-sub danger">Needs immediate attention</div>
+            </div>
+          </div>
+
+          <div class="card kpi-card info">
+            <div class="kpi-icon" style="color: var(--accent-amber);">₹</div>
+            <div class="kpi-info">
+              <h4>Estimated Today's Cost</h4>
+              <div class="kpi-value" id="kpi-cost">₹ 8,450</div>
+              <div class="kpi-sub" id="kpi-cost-sub" style="color: var(--text-secondary);">Daily Rate: ₹6.77/unit • Concession</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-Time Electrical Telemetry & SCADA Metrics Bar -->
+        <div class="card" style="margin-bottom: 24px; padding: 18px 22px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(22, 29, 39, 0.85) 100%); border-color: rgba(0, 230, 118, 0.3);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span class="pulse-dot" style="background-color: var(--accent-green);"></span>
+              <h3 style="font-size: 0.95rem; font-weight: 800; letter-spacing: -0.01em; color: #ffffff;">LIVE ELECTRICAL SCADA STREAM & CURRENT METRICS</h3>
+              <span class="status-badge badge-online" style="font-size: 0.68rem;">1 Hz Real-Time Physics Engine</span>
+            </div>
+            <div style="font-size: 0.78rem; color: var(--text-secondary);">
+              Phase Voltage: <strong style="color: var(--accent-cyan);" id="scadaVoltage">230.2 V</strong> &nbsp;|&nbsp; Frequency: <strong style="color: var(--accent-amber);" id="scadaHz">50.01 Hz</strong>
+            </div>
+          </div>
+
+          <!-- Real-Time Electrical Gauges -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px;">
+            <div style="padding: 12px 14px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Total Active Current</div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent-green); margin-top: 2px;"><span id="scadaCurrent">114.6</span> <span style="font-size: 0.8rem; color: var(--text-secondary);">Amps</span></div>
+              <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 2px;">Sum of active branch CTs</div>
+            </div>
+
+            <div style="padding: 12px 14px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Active Power (kW)</div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent-cyan); margin-top: 2px;"><span id="scadaKw">24.96</span> <span style="font-size: 0.8rem; color: var(--text-secondary);">kW</span></div>
+              <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 2px;">P = V × I × cos(φ)</div>
+            </div>
+
+            <div style="padding: 12px 14px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Live Energy Accumulator</div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: #ffffff; margin-top: 2px;"><span id="scadaKwh">1,248.15</span> <span style="font-size: 0.8rem; color: var(--accent-green);">kWh</span></div>
+              <div style="font-size: 0.68rem; color: var(--accent-green); margin-top: 2px;">⚡ Ticking in real time</div>
+            </div>
+
+            <div style="padding: 12px 14px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Live Bill Accrual</div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent-amber); margin-top: 2px;"><span id="scadaCost">₹ 8,450.00</span></div>
+              <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 2px;">Accruing by second</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Host Laptop Real Hardware Electricity & 100% Performance Power Monitor -->
+        <div class="card" style="margin-bottom: 24px; padding: 20px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(22, 29, 39, 0.85) 100%); border-color: rgba(59, 130, 246, 0.35);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 44px; height: 44px; border-radius: var(--radius-sm); background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #60a5fa;">💻</div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <h3 style="font-size: 1.05rem; font-weight: 800; color: #ffffff;">HOST LAPTOP PHYSICAL ELECTRICITY USAGE</h3>
+                  <span class="status-badge badge-online" style="font-size: 0.68rem; background: rgba(59, 130, 246, 0.2); color: #60a5fa;">● Real Hardware Sensors Active</span>
+                </div>
+                <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px;">
+                  Machine: <strong id="laptopHwModel" style="color: #ffffff;">11th Gen Intel(R) Core(TM) i5-11320H (4C/8T)</strong> &nbsp;|&nbsp; Battery: <strong style="color: var(--accent-green);">94% (AC Adapter Plugged In)</strong>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span class="status-badge badge-low" id="laptopPerfBadge">Idle / Eco Mode</span>
+              <button class="btn btn-primary btn-sm" id="btnRunBenchmark" onclick="window.runLaptopBenchmark(5)">
+                <span>⚡ Run 100% Performance Test (5s)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Laptop Live Real Measurements Grid -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 14px;">
+            <div style="padding: 12px 14px; background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Real CPU Utilization</div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: #60a5fa; margin-top: 2px;"><span id="laptopCpuLoad">18.4</span>%</div>
+              <div style="background: rgba(255, 255, 255, 0.08); height: 5px; border-radius: 3px; overflow: hidden; margin-top: 6px;">
+                <div id="laptopCpuBar" style="width: 18.4%; height: 100%; background: #60a5fa; transition: width 0.3s ease;"></div>
+              </div>
+            </div>
+
+            <div style="padding: 12px 14px; background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">AC Wall Socket Power</div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent-amber); margin-top: 2px;"><span id="laptopAcWatts">23.5</span> <span style="font-size: 0.8rem; color: var(--text-secondary);">Watts</span></div>
+              <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 2px;">Idle: ~18W &nbsp;|&nbsp; 100% Max: ~78W</div>
+            </div>
+
+            <div style="padding: 12px 14px; background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">AC Current Draw @ 230V</div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent-green); margin-top: 2px;"><span id="laptopAmps">0.114</span> <span style="font-size: 0.8rem; color: var(--text-secondary);">Amps</span></div>
+              <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 2px;">Measured at 230V power supply</div>
+            </div>
+
+            <div style="padding: 12px 14px; background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Laptop Today's Cost</div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: #ffffff; margin-top: 2px;"><span id="laptopCost">₹ 0.31</span></div>
+              <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 2px;"><span id="laptopKwh">0.042</span> kWh consumed</div>
+            </div>
+          </div>
+
+          <div style="padding: 10px 14px; background: rgba(59, 130, 246, 0.06); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-secondary); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <strong style="color: #60a5fa;">💡 Live Hardware Grounding:</strong> While external current transformers are in assembly, this live monitor extracts physical Intel CPU package power and AC mains current from this workstation in real time.
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="window.mapLaptopToClassroom()" style="font-size: 0.72rem; padding: 4px 10px;">
+              🔗 Link Laptop Readings to Classroom 1 Node
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Waveform & Interactive Appliance Controller -->
+        <div class="dashboard-grid" style="margin-bottom: 24px;">
+          <!-- Live Oscilloscope / Waveform Streaming Chart -->
+          <div class="card chart-card">
+            <div class="chart-header">
+              <div>
+                <h3 style="font-size: 1rem; font-weight: 700;">Live Current & Power Waveform Stream (Rolling 30s)</h3>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">Real-time second-by-second response to electrical load changes</p>
+              </div>
+              <div class="chart-legend">
+                <span><span class="legend-dot" style="background: var(--accent-green);"></span> Current (A)</span>
+                <span><span class="legend-dot" style="background: var(--accent-cyan);"></span> Power (kW)</span>
+              </div>
+            </div>
+            <div style="flex: 1; position: relative; min-height: 240px;">
+              <canvas id="liveStreamWaveformChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Interactive Appliance & Current Load Controller -->
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <h3 style="font-size: 0.95rem; font-weight: 700;">Live Load & CT Controller</h3>
+              <span class="status-badge badge-low" style="font-size: 0.65rem;">Interactive</span>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 14px;">
+              Switch physical/virtual loads ON/OFF to watch current surge, live chart spike, and AI anomaly detection trigger:
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; font-size: 0.82rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                <div>
+                  <strong>💻 Computer Lab 30x PCs</strong>
+                  <div style="font-size: 0.68rem; color: var(--text-muted);">+32.6 A &nbsp;|&nbsp; +7.5 kW</div>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btnToggleLabPcs" onclick="window.toggleAppliance('labPcs')">Turn ON</button>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                <div>
+                  <strong>❄️ Central AC Chiller Unit</strong>
+                  <div style="font-size: 0.68rem; color: var(--text-muted);">+52.1 A &nbsp;|&nbsp; +12.0 kW</div>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btnToggleAc" onclick="window.toggleAppliance('centralAc')">Turn ON</button>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                <div>
+                  <strong>💡 Classroom 1 High-Bay Lights</strong>
+                  <div style="font-size: 0.68rem; color: var(--text-muted);">+9.5 A &nbsp;|&nbsp; +2.2 kW</div>
+                </div>
+                <button class="btn btn-primary btn-sm" id="btnToggleClassLights" onclick="window.toggleAppliance('classroomLights')">Turn OFF</button>
+              </div>
+
+              <!-- Manual Current Slider for Classroom 1 CT Sensor -->
+              <div style="margin-top: 8px; padding: 10px 12px; background: rgba(0, 230, 118, 0.05); border: 1px solid rgba(0, 230, 118, 0.2); border-radius: var(--radius-sm);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <strong style="font-size: 0.78rem; color: var(--accent-green);">Classroom 1 CT Sensor Slider:</strong>
+                  <span style="font-size: 0.8rem; font-weight: 700; color: #ffffff;" id="ctSliderVal">5.4 A</span>
+                </div>
+                <input type="range" min="1" max="50" step="0.5" value="5.4" id="ctSliderInput" style="width: 100%; cursor: pointer;" oninput="window.overrideCurrentFromSlider(this.value)">
+                <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-muted); margin-top: 2px;">
+                  <span>1 A (Idle)</span>
+                  <span>25 A (Surge)</span>
+                  <span>50 A (Overload)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard 2-column Grid: Consumption Curve + Quick Actions -->
+        <div class="dashboard-grid">
+          <div class="card chart-card">
+            <div class="chart-header">
+              <div>
+                <h3 style="font-size: 1rem; font-weight: 700;">Energy Consumption (kWh)</h3>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">24-hour load curve across campus</p>
+              </div>
+              <div class="chart-legend">
+                <span><span class="legend-dot" style="background: var(--accent-green);"></span> Current</span>
+                <span><span class="legend-dot" style="background: #3b82f6;"></span> Previous</span>
+                <span><span class="legend-dot" style="background: #94a3b8;"></span> Expected</span>
+              </div>
+            </div>
+            <div style="flex: 1; position: relative; min-height: 280px;">
+              <canvas id="dashboardConsumptionChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Quick Actions Panel -->
+          <div class="card">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 16px;">Quick Actions</h3>
+            <div class="quick-actions">
+              <div class="action-card-btn" onclick="window.navigateTab('alerts')">
+                <div class="action-icon">🔔</div>
+                <div>
+                  <div style="font-weight: 700; font-size: 0.88rem;">View Alerts</div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted);">3 pending issues detected</div>
+                </div>
+              </div>
+
+              <div class="action-card-btn" onclick="window.triggerAiScan()">
+                <div class="action-icon" style="background: rgba(0, 210, 255, 0.15); color: var(--accent-cyan);">🧠</div>
+                <div>
+                  <div style="font-weight: 700; font-size: 0.88rem;">Run AI Analysis</div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted);">Scan multi-zone anomalies</div>
+                </div>
+              </div>
+
+              <div class="action-card-btn" onclick="window.navigateTab('reports')">
+                <div class="action-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-amber);">📑</div>
+                <div>
+                  <div style="font-weight: 700; font-size: 0.88rem;">Generate Report</div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted);">Export PDF audit summary</div>
+                </div>
+              </div>
+
+              <div class="action-card-btn" onclick="window.navigateTab('energy-loss')">
+                <div class="action-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald);">⚖️</div>
+                <div>
+                  <div style="font-weight: 700; font-size: 0.88rem;">Meter Balance</div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted);">Supply vs consumer delta</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Panel 03: Alerts Page -->
+      <main id="page-alerts" class="page-container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Alerts</h2>
+            <p>Check and manage energy-related alerts with uncertainty-aware reasoning</p>
+          </div>
+          <button class="btn btn-primary" onclick="window.triggerAiScan()">
+            <span>⚡ Run Fresh AI Scan</span>
+          </button>
+        </div>
+
+        <!-- Highlight Banner -->
+        <div class="alert-banner">
+          <div class="alert-banner-left">
+            <div class="alert-pulse-icon">⚠️</div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.95rem; color: #ff6b6b;">Possible Energy Wastage — Classroom 1 (Block A)</div>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">
+                Electricity usage (42 kWh) is 250% higher than expected during unoccupied period. Suspected lights, fans, or cooling left running.
+              </p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary" onclick="window.showModalAlert('AL-001')">View Details</button>
+            <button class="btn btn-primary" onclick="window.resolveAlertQuick('AL-001')">Assign for Review</button>
+          </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+          <button class="filter-tab active" onclick="window.filterAlerts('All', this)">All (<span id="alertCountAll">5</span>)</button>
+          <button class="filter-tab" onclick="window.filterAlerts('Needs Attention', this)">Needs Attention (<span id="alertCountNeeds">2</span>)</button>
+          <button class="filter-tab" onclick="window.filterAlerts('Under Review', this)">Under Review (<span id="alertCountReview">2</span>)</button>
+          <button class="filter-tab" onclick="window.filterAlerts('Resolved', this)">Resolved (<span id="alertCountResolved">1</span>)</button>
+        </div>
+
+        <!-- Alerts Table -->
+        <div class="data-table-container card" style="padding: 0;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Location</th>
+                <th>Time</th>
+                <th>Severity</th>
+                <th>Status</th>
+                <th>Confidence</th>
+                <th>Assigned To</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="alertsTableBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </main>
+
+      <!-- Panel 04: Energy Monitoring -->
+      <main id="page-monitoring" class="page-container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Energy Monitoring</h2>
+            <p>Track and analyse live electricity consumption across all campus zones</p>
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <button class="btn btn-secondary btn-sm" onclick="window.changeTrendPeriod('hour', this)">Hour</button>
+            <button class="btn btn-primary btn-sm" onclick="window.changeTrendPeriod('day', this)">Day</button>
+            <button class="btn btn-secondary btn-sm" onclick="window.changeTrendPeriod('week', this)">Week</button>
+            <button class="btn btn-secondary btn-sm" onclick="window.changeTrendPeriod('month', this)">Month</button>
+          </div>
+        </div>
+
+        <!-- Monitoring KPIs -->
+        <div class="kpi-grid">
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-green);">⚡</div>
+            <div class="kpi-info">
+              <h4>Total Consumption</h4>
+              <div class="kpi-value">1,248 <span style="font-size: 0.85rem;">kWh</span></div>
+              <div class="kpi-sub">▲ 1.3% vs target</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-cyan);">⏱️</div>
+            <div class="kpi-info">
+              <h4>Today's Peak</h4>
+              <div class="kpi-value">312 <span style="font-size: 0.85rem;">kWh</span></div>
+              <div class="kpi-sub">Recorded at 14:00</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-amber);">₹</div>
+            <div class="kpi-info">
+              <h4>Estimated Cost</h4>
+              <div class="kpi-value">₹ 8,450</div>
+              <div class="kpi-sub" style="color: var(--text-secondary);">Tariff: ₹6.77/unit</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-emerald);">📈</div>
+            <div class="kpi-info">
+              <h4>Load Factor</h4>
+              <div class="kpi-value">87.4%</div>
+              <div class="kpi-sub">Optimal distribution</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Main Chart -->
+          <div class="card chart-card">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px;">Consumption Trend</h3>
+            <div style="flex: 1; position: relative; min-height: 320px;">
+              <canvas id="monitoringTrendChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Room Wise Breakdown -->
+          <div class="card">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 14px;">Room-wise Usage</h3>
+            <div id="roomUsageList" style="display: flex; flex-direction: column; gap: 12px;">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Panel 05: AI Anomaly Detection -->
+      <main id="page-ai-anomalies" class="page-container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>AI Anomaly Detection</h2>
+            <p>Detect unusual electricity patterns, baseline deviations, and off-hour wastage</p>
+          </div>
+          <button class="btn btn-primary" id="btnRunAiDemo" onclick="window.triggerAiScan()">
+            <span>🧠 Run Demo Analysis</span>
+          </button>
+        </div>
+
+        <!-- 3 Metrics -->
+        <div class="kpi-grid">
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-cyan);">🏢</div>
+            <div class="kpi-info">
+              <h4>Analyzed Rooms</h4>
+              <div class="kpi-value" id="aiAnalyzedCount">6</div>
+              <div class="kpi-sub">Continuous time-series</div>
+            </div>
+          </div>
+          <div class="card kpi-card danger">
+            <div class="kpi-icon" style="color: var(--accent-red);">⚡</div>
+            <div class="kpi-info">
+              <h4>Unusual Patterns</h4>
+              <div class="kpi-value" id="aiUnusualCount">2</div>
+              <div class="kpi-sub danger">Requires inspection</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-green);">🎯</div>
+            <div class="kpi-info">
+              <h4>Average AI Confidence</h4>
+              <div class="kpi-value" id="aiConfidenceAvg">91%</div>
+              <div class="kpi-sub">Dual-layer validation</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent AI Analysis Results -->
+        <div class="card">
+          <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 16px;">Recent AI Analysis Results</h3>
+          <div id="aiResultsList" style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </main>
+
+      <!-- Panel 06: Energy Loss Analysis -->
+      <main id="page-energy-loss" class="page-container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Energy Loss Analysis</h2>
+            <p>Compare supply-side and consumer meter readings to identify unexplained differences</p>
+          </div>
+          <div>
+            <span class="status-badge badge-online">Supply Balance Active</span>
+          </div>
+        </div>
+
+        <!-- Top Metrics -->
+        <div class="kpi-grid">
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-cyan);">🔌</div>
+            <div class="kpi-info">
+              <h4>Supply Meter</h4>
+              <div class="kpi-value" id="lossSupplyMeter">2,458 <span style="font-size: 0.85rem;">kWh</span></div>
+              <div class="kpi-sub">Feeder inflow</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-green);">🏢</div>
+            <div class="kpi-info">
+              <h4>Consumer Total</h4>
+              <div class="kpi-value" id="lossConsumerTotal">2,439 <span style="font-size: 0.85rem;">kWh</span></div>
+              <div class="kpi-sub">Sum of sub-meters</div>
+            </div>
+          </div>
+          <div class="card kpi-card warning">
+            <div class="kpi-icon" style="color: var(--accent-amber);">⚖️</div>
+            <div class="kpi-info">
+              <h4>Estimated Difference</h4>
+              <div class="kpi-value" id="lossDiffKwh">18.6 <span style="font-size: 0.85rem;">kWh</span></div>
+              <div class="kpi-sub warning">Unaccounted gap</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-emerald);">📊</div>
+            <div class="kpi-info">
+              <h4>Difference Percentage</h4>
+              <div class="kpi-value" id="lossDiffPct">0.76%</div>
+              <div class="kpi-sub">Within normal 1% line loss</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Supply vs Consumer Dual Line Graph & Root Causes -->
+        <div class="dashboard-grid">
+          <div class="card chart-card">
+            <div class="chart-header">
+              <h3 style="font-size: 1rem; font-weight: 700;">Supply vs Consumer Readings</h3>
+              <div class="chart-legend">
+                <span><span class="legend-dot" style="background: var(--accent-cyan);"></span> Supply Feeder</span>
+                <span><span class="legend-dot" style="background: var(--accent-green);"></span> Consumer Sum</span>
+              </div>
+            </div>
+            <div style="flex: 1; position: relative; min-height: 280px;">
+              <canvas id="lossComparisonChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Possible Causes Analysis -->
+          <div class="card">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px;">Possible Causes</h3>
+            <div id="possibleCausesContainer" style="display: flex; flex-direction: column; gap: 12px;">
+              <!-- Causes with probabilities -->
+            </div>
+
+            <div style="margin-top: 18px; padding: 12px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5;">
+              <strong style="color: var(--accent-amber);">⚠️ Human Verification Notice:</strong><br>
+              An unexplained energy difference is not proof of electricity theft. Authorised personnel must investigate physical cable integrity, CT calibration, and unmetered auxiliary lines.
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Panel 07: Energy Waste Management -->
+      <main id="page-waste-management" class="page-container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Energy Waste Management</h2>
+            <p>Identify and reduce avoidable energy wastage in unoccupied areas</p>
+          </div>
+          <div>
+            <button class="btn btn-outline-green" onclick="window.switchScenario('WASTAGE')">Simulate Empty Room Waste</button>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-cyan);">📍</div>
+            <div class="kpi-info">
+              <h4>Monitored Areas</h4>
+              <div class="kpi-value" id="wasteMonitoredAreas">6</div>
+              <div class="kpi-sub">Sensor-linked zones</div>
+            </div>
+          </div>
+          <div class="card kpi-card danger">
+            <div class="kpi-icon" style="color: var(--accent-red);">💡</div>
+            <div class="kpi-info">
+              <h4>Possible Wastage</h4>
+              <div class="kpi-value" id="wastePossibleCount">3</div>
+              <div class="kpi-sub danger">Unoccupied & high load</div>
+            </div>
+          </div>
+          <div class="card kpi-card warning">
+            <div class="kpi-icon" style="color: var(--accent-amber);">₹</div>
+            <div class="kpi-info">
+              <h4>Estimated Monthly Waste</h4>
+              <div class="kpi-value">₹ 1,240</div>
+              <div class="kpi-sub warning">Avoidable cost</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-green);">🌱</div>
+            <div class="kpi-info">
+              <h4>Potential Savings</h4>
+              <div class="kpi-value" id="wasteSavingsKwh">128 <span style="font-size: 0.85rem;">kWh</span></div>
+              <div class="kpi-sub">If shut down promptly</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Areas Table -->
+        <div class="data-table-container card" style="padding: 0;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Area</th>
+                <th>Status</th>
+                <th>Current Usage</th>
+                <th>Expected Usage</th>
+                <th>Occupancy</th>
+                <th>Avoidable Gap</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="wasteTableBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top: 18px; padding: 14px; background: rgba(0, 230, 118, 0.08); border: 1px solid rgba(0, 230, 118, 0.2); border-radius: var(--radius-md); font-size: 0.84rem; display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 1.4rem;">💡</span>
+          <div>
+            <strong>Energy Saving Recommendation:</strong> Turn off lights, fans, and computer equipment in unused rooms to immediately save energy and operational costs.
+          </div>
+        </div>
+      </main>
+
+      <!-- Panel 08: Device Management -->
+      <main id="page-device-management" class="page-container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Device Management</h2>
+            <p>Monitor IoT sensor nodes, microcontrollers (ESP32), virtual meters, and network health</p>
+          </div>
+          <button class="btn btn-primary" onclick="window.openAddDeviceModal()">
+            <span>+ Add Device</span>
+          </button>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-cyan);">📟</div>
+            <div class="kpi-info">
+              <h4>Total Devices</h4>
+              <div class="kpi-value" id="devTotal">12</div>
+              <div class="kpi-sub">Registered nodes</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-green);">🟢</div>
+            <div class="kpi-info">
+              <h4>Online</h4>
+              <div class="kpi-value" id="devOnline">10</div>
+              <div class="kpi-sub">Transmitting telemetry</div>
+            </div>
+          </div>
+          <div class="card kpi-card danger">
+            <div class="kpi-icon" style="color: var(--accent-red);">🔴</div>
+            <div class="kpi-info">
+              <h4>Offline</h4>
+              <div class="kpi-value" id="devOffline">1</div>
+              <div class="kpi-sub danger">CG-ESP32-004</div>
+            </div>
+          </div>
+          <div class="card kpi-card warning">
+            <div class="kpi-icon" style="color: var(--accent-amber);">🟡</div>
+            <div class="kpi-info">
+              <h4>In Maintenance</h4>
+              <div class="kpi-value" id="devMaintenance">1</div>
+              <div class="kpi-sub warning">Auditorium Main</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Devices Table -->
+        <div class="data-table-container card" style="padding: 0;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Device ID</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Firmware</th>
+                <th>Signal (RSSI)</th>
+                <th>Status</th>
+                <th>Last Seen</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="deviceTableBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </main>
+
+      <!-- Panel 09: Cybersecurity -->
+      <main id="page-cybersecurity" class="page-container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Cybersecurity & Tamper-Evident Audit</h2>
+            <p>Secure device authentication, access control, encrypted telemetry, and SHA-256 chained audit logs</p>
+          </div>
+          <div>
+            <span class="status-badge badge-online" id="integrityBadge">✓ Cryptographic Chain Verified</span>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-green);">🛡️</div>
+            <div class="kpi-info">
+              <h4>Authenticated Devices</h4>
+              <div class="kpi-value">12</div>
+              <div class="kpi-sub">Pre-shared token bound</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-red);">🚫</div>
+            <div class="kpi-info">
+              <h4>Unauthorized Attempts</h4>
+              <div class="kpi-value" id="secUnauthorizedCount">0</div>
+              <div class="kpi-sub">Blocked at edge</div>
+            </div>
+          </div>
+          <div class="card kpi-card info">
+            <div class="kpi-icon" style="color: var(--accent-cyan);">🔐</div>
+            <div class="kpi-info">
+              <h4>Encryption</h4>
+              <div class="kpi-value" style="font-size: 1.2rem;">Active</div>
+              <div class="kpi-sub">TLS 1.3 / AES-256</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon" style="color: var(--accent-amber);">👥</div>
+            <div class="kpi-info">
+              <h4>User Roles</h4>
+              <div class="kpi-value">4</div>
+              <div class="kpi-sub">RBAC enforced</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security Logs Table with Hash Chain -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <h3 style="font-size: 1rem; font-weight: 700;">Immutable Security Audit Trail (SHA-256 Hash Chain)</h3>
+            <button class="btn btn-secondary btn-sm" onclick="window.verifyAuditChain()">Verify Hash Chain</button>
+          </div>
+          <div class="data-table-container" style="padding: 0;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Timestamp</th>
+                  <th>Event</th>
+                  <th>Details</th>
+                  <th>Status</th>
+                  <th>SHA-256 Digest</th>
+                </tr>
+              </thead>
+              <tbody id="securityLogsTableBody">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+      <!-- Panel 10: Reports -->
+      <main id="page-reports" class="page-container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Reports</h2>
+            <p>Generate, review, and download comprehensive energy intelligence reports</p>
+          </div>
+          <div>
+            <span style="font-size: 0.8rem; color: var(--text-secondary); background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: var(--radius-sm);">
+              📅 Range: 01 Sep 2026 – 15 Sep 2026
+            </span>
+          </div>
+        </div>
+
+        <!-- 4 Report Generation Cards -->
+        <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+          <div class="card">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;">Energy Consumption</h3>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px;">Campus usage trends, peak demand hours, and load profile breakdown.</p>
+            <button class="btn btn-primary btn-sm" style="width: 100%;" onclick="window.generatePdfReport('consumption')">Generate Report</button>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;">Energy Loss Report</h3>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px;">Supply vs consumer variance analysis and line loss probabilities.</p>
+            <button class="btn btn-primary btn-sm" style="width: 100%;" onclick="window.generatePdfReport('loss')">Generate Report</button>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;">Alert History</h3>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px;">Complete audit trail of all anomalies, timestamps, and resolutions.</p>
+            <button class="btn btn-primary btn-sm" style="width: 100%;" onclick="window.generatePdfReport('alerts')">Generate Report</button>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px;">Energy Waste Report</h3>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px;">Avoidable energy loss by room, occupancy correlation, and savings.</p>
+            <button class="btn btn-primary btn-sm" style="width: 100%;" onclick="window.generatePdfReport('waste')">Generate Report</button>
+          </div>
+        </div>
+
+        <!-- Recent Generated Reports List -->
+        <div class="card" style="margin-top: 20px;">
+          <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 14px;">Recent Reports</h3>
+          <div class="data-table-container" style="padding: 0;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Report Title</th>
+                  <th>Period</th>
+                  <th>Format</th>
+                  <th>Generated Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Monthly Campus Energy Audit</strong></td>
+                  <td>Sep 2026</td>
+                  <td><span class="status-badge badge-low">PDF</span></td>
+                  <td>15 Sep 2026</td>
+                  <td><button class="btn btn-secondary btn-sm" onclick="window.generatePdfReport('consumption')">Download PDF</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Supply & Sub-meter Loss Analysis</strong></td>
+                  <td>Sep 2026</td>
+                  <td><span class="status-badge badge-low">PDF</span></td>
+                  <td>14 Sep 2026</td>
+                  <td><button class="btn btn-secondary btn-sm" onclick="window.generatePdfReport('loss')">Download PDF</button></td>
+                </tr>
+                <tr>
+                  <td><strong>AI Anomaly & Alert Summary</strong></td>
+                  <td>Sep 2026</td>
+                  <td><span class="status-badge badge-low">PDF</span></td>
+                  <td>13 Sep 2026</td>
+                  <td><button class="btn btn-secondary btn-sm" onclick="window.generatePdfReport('alerts')">Download PDF</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Unoccupied Room Wastage Log</strong></td>
+                  <td>Sep 2026</td>
+                  <td><span class="status-badge badge-low">PDF</span></td>
+                  <td>12 Sep 2026</td>
+                  <td><button class="btn btn-secondary btn-sm" onclick="window.generatePdfReport('waste')">Download PDF</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+      <!-- Panel 11: Project Architecture -->
+      <main id="page-architecture" class="page-container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Project Architecture</h2>
+            <p>End-to-end data pipeline: from low-voltage IoT sensors to AI reasoning and actionable triage</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size: 1.1rem; font-weight: 800; text-align: center; margin-bottom: 24px;">How CurrentGuard AI Works</h3>
+
+          <div class="arch-grid">
+            <div class="arch-node">
+              <div class="node-icon">📡</div>
+              <h4>IoT Devices</h4>
+              <p>ESP32 Microcontrollers, Low-voltage Current Sensors, Simulated Meter Nodes</p>
+            </div>
+
+            <div class="arch-node" style="border-color: rgba(0, 210, 255, 0.4);">
+              <div class="node-icon">🔒</div>
+              <h4>Secure API</h4>
+              <p>Data Collection, Device Token Auth, TLS Encryption & Ingestion Gateway</p>
+            </div>
+
+            <div class="arch-node">
+              <div class="node-icon">🗄️</div>
+              <h4>Cloud / Local DB</h4>
+              <p>Time-Series Telemetry Store, Alert State & SHA-256 Audit Records</p>
+            </div>
+
+            <div class="arch-node" style="border-color: rgba(0, 230, 118, 0.4);">
+              <div class="node-icon">🧠</div>
+              <h4>AI Analysis</h4>
+              <p>Baseline Profiler, Z-Score Anomaly Detector & Uncertainty Scorer</p>
+            </div>
+
+            <div class="arch-node">
+              <div class="node-icon">🖥️</div>
+              <h4>Dashboard</h4>
+              <p>Live Monitoring, Room Status, Waste Insights & Reports</p>
+            </div>
+
+            <div class="arch-node" style="border-color: rgba(239, 68, 68, 0.4);">
+              <div class="node-icon">🔔</div>
+              <h4>Actionable Alerts</h4>
+              <p>Human-in-the-Loop Triage, Maintenance Dispatch & Resolution</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+            <div style="padding: 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <h4 style="color: var(--accent-green); font-size: 0.9rem; margin-bottom: 6px;">✓ Scalable Architecture</h4>
+              <p style="font-size: 0.8rem; color: var(--text-secondary);">Designed to connect multiple building blocks or entire campuses via microservices.</p>
+            </div>
+            <div style="padding: 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <h4 style="color: var(--accent-cyan); font-size: 0.9rem; margin-bottom: 6px;">✓ AI-Powered Analysis</h4>
+              <p style="font-size: 0.8rem; color: var(--text-secondary);">Learns seasonal baselines and scores anomalies with uncertainty indicators (e.g. 91% confidence).</p>
+            </div>
+            <div style="padding: 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <h4 style="color: var(--accent-amber); font-size: 0.9rem; margin-bottom: 6px;">✓ Modular & Safe Design</h4>
+              <p style="font-size: 0.8rem; color: var(--text-secondary);">Zero mains connection hazard. Supports 3.3V/5V low-voltage hardware alongside high-fidelity simulation.</p>
+            </div>
+            <div style="padding: 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+              <h4 style="color: var(--accent-emerald); font-size: 0.9rem; margin-bottom: 6px;">✓ Suitable for Smart Grids</h4>
+              <p style="font-size: 0.8rem; color: var(--text-secondary);">Extensible to bidirectional solar generation, battery storage, and smart micro-grid telemetry.</p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Panel 12: About & Team Presentation -->
+      <main id="page-about" class="page-container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>About CurrentGuard AI</h2>
+            <p>Intelligent Electricity Loss & Energy Waste Management System — Hackathon Presentation</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <span class="sdg-badge">☀️ SDG 7</span>
+            <span class="sdg-badge sdg13">🌍 SDG 13</span>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+              <img src="assets/logo.png" alt="CurrentGuard AI" style="width: 64px; height: 64px; object-fit: contain;">
+              <div>
+                <h3 style="font-size: 1.3rem; font-weight: 800;">CurrentGuard AI</h3>
+                <span style="font-size: 0.82rem; color: var(--accent-green); font-weight: 600;">Monitor Power. Prevent Waste. Protect Energy.</span>
+              </div>
+            </div>
+
+            <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">
+              CurrentGuard AI is a smart monitoring platform that combines low-voltage IoT sensing, simulated smart meter streams, uncertainty-aware AI anomaly detection, and human-in-the-loop triage. The system does not jump to accusations of power theft; instead, it provides structured evidence for authorised technicians to inspect root causes.
+            </p>
+
+            <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">Core Capabilities:</h4>
+            <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.8; margin-left: 20px;">
+              <li><strong>Zero-Risk Simulation First:</strong> Full workflow testable safely without 230V mains danger.</li>
+              <li><strong>Two-Layer Intelligence:</strong> Room-level waste detection + supply-vs-consumer balance comparison.</li>
+              <li><strong>Action-Oriented Triage:</strong> Contextual suggestions for facility managers to cut idle consumption.</li>
+              <li><strong>Security by Design:</strong> Device tokens and SHA-256 tamper-evident cryptographic audit log.</li>
+            </ul>
+          </div>
+
+          <!-- Team & Institution Info -->
+          <div class="card">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 16px;">Project Team & Details</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;">
+              <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm);">
+                <div class="avatar">LK</div>
+                <div>
+                  <div style="font-weight: 700; font-size: 0.88rem;">Lohith K</div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted);">B.E. CSE — Cyber Security</div>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm);">
+                <div class="avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">JC</div>
+                <div>
+                  <div style="font-weight: 700; font-size: 0.88rem;">John Christ S</div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted);">B.E. CSE — Cyber Security</div>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm);">
+                <div class="avatar" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6);">NS</div>
+                <div>
+                  <div style="font-weight: 700; font-size: 0.88rem;">Nigun S</div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted);">B.E. CSE — Cyber Security</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding: 12px; background: rgba(0, 230, 118, 0.08); border-radius: var(--radius-sm); font-size: 0.8rem; color: var(--text-secondary);">
+              <div><strong>Institution:</strong> Rathinam Technical Campus</div>
+              <div style="margin-top: 4px;"><strong>Theme:</strong> Sustainable Energy & Cyber Security</div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal: Alert Details & Assignment -->
+  <div id="alertDetailModal" class="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close" onclick="window.closeModal('alertDetailModal')">✕</button>
+      <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;" id="modalAlertTitle">Alert Details</h3>
+      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+        <span class="status-badge badge-high" id="modalAlertSeverity">High</span>
+        <span class="status-badge badge-normal" id="modalAlertStatus">Needs Attention</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); align-self: center;" id="modalAlertTime">08:30 PM</span>
+      </div>
+
+      <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: var(--radius-sm); font-size: 0.85rem; margin-bottom: 16px; line-height: 1.5;" id="modalAlertDetails">
+        Usage details
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;">Suggested Corrective Action:</label>
+        <div style="padding: 10px; background: rgba(0,230,118,0.08); border-left: 3px solid var(--accent-green); font-size: 0.8rem;" id="modalAlertAction">
+          Action description
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Assign To Team Member:</label>
+        <select class="form-control" id="modalAssignee">
+          <option value="Lohith K (Admin)">Lohith K (Admin)</option>
+          <option value="John Christ (Tech Lead)">John Christ (Tech Lead)</option>
+          <option value="Nigun S (Auditor)">Nigun S (Auditor)</option>
+          <option value="Campus Electrician On-Duty">Campus Electrician On-Duty</option>
+        </select>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+        <button class="btn btn-secondary" onclick="window.updateAlertStatusFromModal('Under Review')">Mark Under Review</button>
+        <button class="btn btn-primary" onclick="window.updateAlertStatusFromModal('Resolved')">Mark Resolved</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add Device -->
+  <div id="addDeviceModal" class="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close" onclick="window.closeModal('addDeviceModal')">✕</button>
+      <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 16px;">Register New IoT Sensor Node</h3>
+
+      <div class="form-group">
+        <label>Device Name</label>
+        <input type="text" class="form-control" id="newDevName" placeholder="e.g. Physics Lab Feeder">
+      </div>
+
+      <div class="form-group">
+        <label>Location / Room</label>
+        <input type="text" class="form-control" id="newDevLocation" placeholder="e.g. Science Block Ground Fl">
+      </div>
+
+      <div class="form-group">
+        <label>Device Type</label>
+        <select class="form-control" id="newDevType">
+          <option value="ESP32 Controller">ESP32 Controller (3.3V Low Voltage)</option>
+          <option value="Virtual Sub-meter">Virtual Sub-meter (Simulated)</option>
+          <option value="CT Current Sensor">ACS712 / SCT Current Sensor Node</option>
+          <option value="Smart Relay Node">Smart Relay Switch Node</option>
+        </select>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+        <button class="btn btn-secondary" onclick="window.closeModal('addDeviceModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="window.submitAddDevice()">Register Device</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Report Preview & PDF Print -->
+  <div id="reportModal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 680px;">
+      <button class="modal-close" onclick="window.closeModal('reportModal')">✕</button>
+      <div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 16px;">
+        <img src="assets/logo.png" style="width: 38px; height: 38px; object-fit: contain;">
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 800;" id="reportModalTitle">Official Energy Audit Report</h3>
+          <span style="font-size: 0.72rem; color: var(--accent-green);">CURRENTGUARD AI REPORTING ENGINE</span>
+        </div>
+      </div>
+
+      <div id="reportModalContent" style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; max-height: 400px; overflow-y: auto;">
+        <!-- Report Content -->
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 14px;">
+        <button class="btn btn-secondary" onclick="window.closeModal('reportModal')">Close</button>
+        <button class="btn btn-primary" onclick="window.printReport()">🖨️ Print / Save as PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Location & Daily Electricity Rate Settings -->
+  <div id="tariffModal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 600px;">
+      <button class="modal-close" onclick="window.closeModal('tariffModal')">✕</button>
+      <div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 16px;">
+        <span style="font-size: 1.8rem;">📍</span>
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 800;">Location & Daily Electricity Tariff</h3>
+          <span style="font-size: 0.72rem; color: var(--accent-green); text-transform: uppercase;">DYNAMIC REGIONAL CURRENT RATE ENGINE</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 18px;">
+        <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;">Select Campus / Regional Grid Location:</label>
+        <select class="form-control" id="modalLocationSelector" onchange="window.selectModalLocation(this.value)">
+          <!-- Populated dynamically -->
+        </select>
+      </div>
+
+      <!-- Active Location Tariff Cards -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px;">
+        <div style="padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+          <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Daily Standard Unit Rate</div>
+          <div style="font-size: 1.4rem; font-weight: 800; color: var(--accent-green); margin-top: 2px;" id="modalRateDisplay">₹6.77 <span style="font-size: 0.8rem; color: var(--text-secondary);">/ kWh</span></div>
+          <div style="font-size: 0.7rem; color: var(--text-secondary); margin-top: 4px;" id="modalLocCategory">Institutional HT-IIB (TANGEDCO)</div>
+        </div>
+
+        <div style="padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+          <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Time-of-Day (ToD) Surcharge</div>
+          <div style="font-size: 0.82rem; margin-top: 6px; color: var(--text-secondary);">
+            • Peak Hours (18:00 - 22:00): <strong style="color: var(--accent-amber);" id="modalPeakRate">₹8.12</strong><br>
+            • Off-Peak (22:00 - 06:00): <strong style="color: var(--accent-cyan);" id="modalOffPeakRate">₹5.41</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Edit Daily Rate -->
+      <div style="padding: 14px; background: rgba(0, 230, 118, 0.05); border: 1px solid rgba(0, 230, 118, 0.2); border-radius: var(--radius-sm); margin-bottom: 18px;">
+        <label style="font-size: 0.8rem; font-weight: 700; color: var(--accent-green); display: block; margin-bottom: 6px;">Adjust Daily Unit Rate for Selected Location (₹/kWh):</label>
+        <div style="display: flex; gap: 10px;">
+          <input type="number" step="0.01" class="form-control" id="modalRateInput" value="6.77" style="max-width: 160px; font-size: 1.05rem; font-weight: 700;">
+          <button class="btn btn-primary" onclick="window.saveCustomRate()">Save & Recalculate</button>
+        </div>
+        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 6px;">
+          Updating this rate immediately recalculates today's campus costs, room-level financial impact, and waste recovery projections.
+        </p>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="btn btn-secondary" onclick="window.closeModal('tariffModal')">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic Scripts -->
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
