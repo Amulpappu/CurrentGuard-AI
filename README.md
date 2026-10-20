@@ -117,4 +117,6 @@ MIT License. Built for Vishwakarma Unique Application Stage 2 Prototype.
 
 ## ☁️ Deploy to Zoho Catalyst
 
+**Live demo:** https://currentguard-50047029024.development.catalystappsail.in
+
 Double-click `deploy_catalyst.bat` to publish the dashboard and API as one live app on Catalyst AppSail. See [DEPLOY_CATALYST.md](DEPLOY_CATALYST.md) for details.

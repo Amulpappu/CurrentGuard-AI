@@ -22,12 +22,15 @@ Run the same file again whenever you want to publish changes.
 ## How it works
 | File | Purpose |
 |---|---|
-| `catalyst.json` | Tells the CLI this project has one AppSail service, `currentguard-ai` |
+| `catalyst.json` | Tells the CLI this project has one AppSail service, `currentguard` |
 | `appsail/app-config.json` | Start command (`python3 -u run.py`), Python 3.11 stack, build folder, 512 MB memory |
 | `backend/run.py` | Starts the server on the port Catalyst provides (`X_ZOHO_CATALYST_LISTEN_PORT`) |
 | `backend/requirements-deploy.txt` | Runtime-only packages installed into the deploy folder |
 
 The demo SQLite database is created in the server's temp folder and re-seeded automatically on every start.
+
+## Live app
+https://currentguard-50047029024.development.catalystappsail.in
 
 ## Demo logins
 The dashboard's demo accounts are listed in `frontend/src/pages/Login.jsx` (for example `viewer` / `view123` for read-only access).
