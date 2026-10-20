@@ -36,8 +36,7 @@ echo [4/6] Downloading Linux Python packages for Catalyst (Python 3.11)...
 python -m pip install -r backend\requirements-deploy.txt --platform manylinux2014_x86_64 --python-version 3.11 --implementation cp --only-binary=:all: --target catalyst_build --upgrade --quiet --disable-pip-version-check || goto :fail
 
 echo [5/6] Checking your Zoho login and project...
-call catalyst whoami >nul 2>nul
-if errorlevel 1 (
+if not exist .catalystrc (
   echo     A browser window will open. Sign in with your Zoho account.
   call catalyst login || goto :fail
 )
